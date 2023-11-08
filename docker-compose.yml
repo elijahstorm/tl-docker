@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # thunderlite
   web:
-    build: ./thunderlite
+    build: ../thunderlite
     ports:
       - '5173:5173'
   db:
@@ -21,10 +21,10 @@ services:
 
   # hanko
   hanko-migrate:
-    build: ./hanko/backend
+    build: ../hanko/backend
     volumes:
       - type: bind
-        source: ./hanko/deploy/docker-compose/config.yaml
+        source: ../hanko/deploy/docker-compose/config.yaml
         target: /etc/config/config.yaml
     command: --config /etc/config/config.yaml migrate up
     restart: on-failure
@@ -37,7 +37,7 @@ services:
     depends_on:
       hanko-migrate:
         condition: service_completed_successfully
-    build: ./hanko/backend
+    build: ../hanko/backend
     ports:
       - '8000:8000' # public
       - '8001:8001' # admin
@@ -45,7 +45,7 @@ services:
     command: serve --config /etc/config/config.yaml all
     volumes:
       - type: bind
-        source: ./hanko/deploy/docker-compose/config.yaml
+        source: ../hanko/deploy/docker-compose/config.yaml
         target: /etc/config/config.yaml
     networks:
       - intranet
@@ -68,7 +68,7 @@ services:
     networks:
       - intranet
   elements:
-    build: ./hanko/frontend
+    build: ../hanko/frontend
     ports:
       - '9500:80'
     networks:
