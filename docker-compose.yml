@@ -5,7 +5,11 @@ services:
   web:
     build: ../thunderlite
     ports:
-      - '5173:5173'
+      - '4173:4173'
+  ws:
+    build: ../thunderlite-ws
+    ports:
+      - '8083:8080'
   db:
     image: postgres
     restart: always
